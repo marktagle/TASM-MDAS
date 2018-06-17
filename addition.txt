@@ -1,0 +1,51 @@
+.model small
+.stack 200h
+.data
+
+        crlf db 0dh, 0ah, '$'
+        prompt1 db 'Enter first positive integer :', '$'
+        prompt2 db 'Enter second positive integer :', '$'
+        prompt3 db 'The sum of the two number is :', '$'
+.code
+.startup
+
+        lea dx, prompt1
+        mov ah, 09h
+        int 21h
+
+        mov ah, 01h
+        int 21h
+
+        sub al, 30h
+        mov cl, al
+
+        lea dx, crlf
+        mov ah, 09h
+        int 21h
+
+        lea dx, prompt2
+        mov ah, 09h
+        int 21h
+
+        mov ah, 01h
+        int 21h
+
+        sub al, 30h
+        add al, cl
+
+        add al, 30h
+        mov cl, al
+
+        lea dx, crlf
+        mov ah, 09h
+        int 21h
+
+        lea dx, prompt3
+        mov ah, 09h
+        int 21h
+
+        mov dl, cl
+        mov ah, 02h
+        int 21h
+        int 27h
+end
