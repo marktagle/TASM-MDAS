@@ -1,4 +1,5 @@
-# TASM-MDAS
+# TASM
+# Sample Cases and MDAS using TASM
 # How to execute tasm compiler in (cmd)
   Make sure tasm folder is already inside local disc C.
   C:\TASM\
