@@ -1,0 +1,58 @@
+.model small
+.stack 200h
+.data
+        num1 db ?                          ;first number holder
+        num2 db ?                          ;secomd number holder
+        num3 db ?                          ;result holder
+	msg1 db 10,13,'first num: ','$'
+	msg2 db 10,13,'second num: ','$'
+	msg3 db 10,13,'prod: ','$'
+.code
+.startup
+        mov ax,@data                       ;loads all from DATA SEGMENT for usage later
+        mov ds,ax                          ;puts DATA to actual use
+
+        lea dx,msg1                        ;same shit
+        mov ah,9                           ;pwede 9 lang, tipid sa type
+        int 21h
+
+        mov ah,1                           ;accepts input
+        int 21h
+        sub al,30h                         ;gets raw value
+        mov num1,al                        ;moves value to num1
+
+        lea dx,msg2                        ; eh
+        mov ah,9
+        int 21h
+
+        mov ah,1
+        int 21h
+        sub al,30h
+        mov num2,al                        ;same logic
+
+        mul num1                           ;starts multi of num1 and num2
+        
+        mov num3,al                        ;puts product to data regs
+        aam                                ;adjusts value to show 2 digits    (ASCII Adjust After Multiplication)
+
+        add ah,30h                         ;adds 30h to show first number of product correctly
+        add al,30h                         ;same ^
+                                           
+        mov bx,ax                          ;now ah is now bh (first digit), al to bl (second digit)
+                                           ;now product is ready to be printed
+        lea dx,msg3
+        mov ah,9
+        int 21h                            ;disp msg3
+
+        mov ah,2
+        mov dl,bh                          ;show first num of product
+        int 21h
+
+        mov ah,2
+        mov dl,bl                          ;show second num of product
+        int 21h
+
+        mov ah,4ch                         ;exit
+        int 21h
+ENDS
+END 
